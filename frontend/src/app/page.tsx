@@ -1,25 +1,33 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
+  ArrowRight,
   BarChart3,
   Bot,
   Brain,
   CheckCircle2,
+  CircleDashed,
+  Command,
   Database,
   FileText,
+  Globe,
   Lightbulb,
   Lock,
   MessageSquare,
+  PanelTop,
   Search,
   Send,
   ShieldCheck,
   Sparkles,
   TrendingDown,
   UploadCloud,
-  Users
+  Users,
+  X,
+  Zap
 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Area,
   AreaChart,
@@ -35,7 +43,7 @@ import { agentHealth, conversations, documents, insights, sentimentTrend } from 
 import { mockApi } from "@/lib/mock-api";
 
 const navItems = [
-  { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+  { id: "dashboard", label: "Overview", icon: PanelTop },
   { id: "chat", label: "AI Chat", icon: MessageSquare },
   { id: "knowledge", label: "Knowledge", icon: Database },
   { id: "insights", label: "Insights", icon: Lightbulb },
@@ -56,6 +64,12 @@ type ChatMessage = {
   meta?: string;
 };
 
+type CommandAction = {
+  label: string;
+  description: string;
+  target: (typeof navItems)[number]["id"];
+};
+
 export default function HomePage() {
   const [active, setActive] = useState<(typeof navItems)[number]["id"]>("dashboard");
   const [question, setQuestion] = useState("Why are customers confused about billing proration?");
@@ -67,6 +81,7 @@ export default function HomePage() {
     }
   ]);
   const [isThinking, setIsThinking] = useState(false);
+  const [commandOpen, setCommandOpen] = useState(false);
 
   const complaintData = useMemo(
     () => [
@@ -78,6 +93,46 @@ export default function HomePage() {
     ],
     []
   );
+
+  const performanceData = useMemo(
+    () => [
+      { name: "Support", score: 94 },
+      { name: "Knowledge", score: 88 },
+      { name: "Sentiment", score: 91 },
+      { name: "Analytics", score: 85 },
+      { name: "Recommendation", score: 89 },
+      { name: "Sales", score: 78 }
+    ],
+    []
+  );
+
+  const commands: CommandAction[] = useMemo(
+    () => [
+      { label: "Go to overview", description: "Open the executive dashboard", target: "dashboard" },
+      { label: "Open AI chat", description: "Start a grounded conversation", target: "chat" },
+      { label: "Review knowledge base", description: "Inspect indexed documents", target: "knowledge" },
+      { label: "Inspect insights", description: "See complaint and churn signals", target: "insights" },
+      { label: "Check agent health", description: "Review specialist performance", target: "agents" },
+      { label: "Open security view", description: "Review auth and audit posture", target: "security" }
+    ],
+    []
+  );
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setCommandOpen((current) => !current);
+      }
+
+      if (event.key === "Escape") {
+        setCommandOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   async function askEchoTwin() {
     if (!question.trim() || isThinking) return;
@@ -99,6 +154,8 @@ export default function HomePage() {
     }, 450);
   }
 
+  const activeTitle = navItems.find((item) => item.id === active)?.label ?? "Overview";
+
   return (
     <main className="app-shell">
       <aside className="sidebar">
@@ -112,10 +169,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="search-box">
+        <button className="search-box search-button" onClick={() => setCommandOpen(true)}>
           <Search size={15} />
           <span>Search conversations, docs, insights</span>
-        </div>
+          <kbd>Ctrl K</kbd>
+        </button>
 
         <nav className="nav-list">
           {navItems.map((item) => (
@@ -130,13 +188,16 @@ export default function HomePage() {
           ))}
         </nav>
 
-        <div className="sidebar-card">
+        <div className="sidebar-card pulse-card">
           <div className="mini-icon">
             <Bot size={16} />
           </div>
           <p>AI confidence</p>
           <strong>91%</strong>
           <span>Grounded responses from 331 indexed chunks</span>
+          <div className="signal-bar">
+            <i style={{ width: "91%" }} />
+          </div>
         </div>
       </aside>
 
@@ -145,18 +206,78 @@ export default function HomePage() {
           <div>
             <p className="eyebrow">FlowZint AI Hackathon 2026</p>
             <h1>Every Conversation Builds a Better Business.</h1>
+            <p className="hero-copy">
+              A production-style AI customer intelligence platform that answers customers, extracts business signals,
+              and feeds product and support decisions back into one continuous learning loop.
+            </p>
+            <p className="active-chip">Viewing {activeTitle}</p>
           </div>
           <div className="top-actions">
+            <button className="ghost-button" onClick={() => setCommandOpen(true)}>
+              <Command size={16} />
+              Command palette
+            </button>
             <button className="ghost-button">
               <UploadCloud size={16} />
               Upload docs
             </button>
-            <button className="primary-button">
+            <button className="primary-button" onClick={() => setActive("chat") }>
               <Send size={16} />
               Ask EchoTwin
             </button>
           </div>
         </header>
+
+        <section className="hero-grid">
+          <motion.article className="hero-card primary-hero" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="hero-headline">
+              <div>
+                <span className="badge badge-brand">Live organization intelligence</span>
+                <h2>Grounded answers plus insight extraction in one workflow.</h2>
+              </div>
+              <div className="hero-pill">
+                <Zap size={15} />
+                Streaming ready
+              </div>
+            </div>
+            <div className="hero-stats">
+              <div>
+                <strong>2.4s</strong>
+                <span>Median response time</span>
+              </div>
+              <div>
+                <strong>98.7%</strong>
+                <span>Source citation coverage</span>
+              </div>
+              <div>
+                <strong>14</strong>
+                <span>Detected churn risks</span>
+              </div>
+            </div>
+          </motion.article>
+
+          <motion.article className="hero-card signal-card" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="section-label">Today’s intelligence</span>
+            <div className="signal-list">
+              <div>
+                <Users size={16} />
+                <span>38 active customer conversations</span>
+              </div>
+              <div>
+                <Lightbulb size={16} />
+                <span>12 new product feedback signals</span>
+              </div>
+              <div>
+                <Globe size={16} />
+                <span>4 missing documentation pages discovered</span>
+              </div>
+              <div>
+                <CircleDashed size={16} />
+                <span>3 conversations escalated for human review</span>
+              </div>
+            </div>
+          </motion.article>
+        </section>
 
         {active === "dashboard" && (
           <div className="content-grid">
@@ -243,6 +364,26 @@ export default function HomePage() {
                     </div>
                   </article>
                 ))}
+              </div>
+            </section>
+
+            <section className="panel">
+              <div className="panel-head">
+                <div>
+                  <h2>Agent performance</h2>
+                  <p>How the specialized AI workers are tracking against the confidence target.</p>
+                </div>
+              </div>
+              <div className="chart small">
+                <ResponsiveContainer width="100%" height={230}>
+                  <BarChart data={performanceData} layout="vertical">
+                    <CartesianGrid stroke="rgba(148,163,184,.14)" horizontal={false} />
+                    <XAxis type="number" stroke="#94a3b8" />
+                    <YAxis type="category" dataKey="name" stroke="#94a3b8" width={110} />
+                    <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,.12)" }} />
+                    <Bar dataKey="score" fill="#34d399" radius={[0, 8, 8, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
             </section>
           </div>
@@ -360,6 +501,47 @@ export default function HomePage() {
             ))}
           </section>
         )}
+
+        <AnimatePresence>
+          {commandOpen && (
+            <motion.div className="command-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div
+                className="command-panel"
+                initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.98 }}
+              >
+                <div className="command-head">
+                  <div>
+                    <span className="section-label">Command palette</span>
+                    <h2>Navigate the product surface</h2>
+                  </div>
+                  <button className="ghost-button command-close" onClick={() => setCommandOpen(false)}>
+                    <X size={16} />
+                  </button>
+                </div>
+                <div className="command-list">
+                  {commands.map((command) => (
+                    <button
+                      key={command.label}
+                      className="command-item"
+                      onClick={() => {
+                        setActive(command.target);
+                        setCommandOpen(false);
+                      }}
+                    >
+                      <div>
+                        <strong>{command.label}</strong>
+                        <span>{command.description}</span>
+                      </div>
+                      <ArrowRight size={16} />
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
     </main>
   );
