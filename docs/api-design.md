@@ -1,19 +1,25 @@
 # API Design
 
-EchoTwin AI will expose a versioned API under `/api/v1`. The API is designed for a production-style SaaS product with organizations, users, documents, conversations, insights, recommendations, and audit logs.
+EchoTwin AI exposes a versioned API under `/api/v1`.
 
-## API Goals
+The API is designed for a production-style SaaS product with organizations, users, documents, conversations, insights, recommendations, and audit logs.
 
-- Keep frontend integration predictable
-- Return stable response envelopes
+---
+
+## API goals
+
+- Predictable frontend integration
+- Stable response envelopes
 - Support streaming AI responses
-- Enforce organization-level access control
-- Make analytics and insights easy to query
-- Keep errors useful for both users and developers
+- Organization-level access control
+- Easy-to-query analytics and insights
+- Errors that are useful for users and developers
 
-## Response Envelope
+---
 
-Successful responses:
+## Response envelope
+
+### Success
 
 ```json
 {
@@ -22,7 +28,7 @@ Successful responses:
 }
 ```
 
-Error responses:
+### Error
 
 ```json
 {
@@ -32,9 +38,11 @@ Error responses:
 }
 ```
 
-## Planned Resource Groups
+---
 
-| Route Group | Purpose |
+## Resource groups (planned)
+
+| Route group | Purpose |
 | --- | --- |
 | `/auth` | Register, login, refresh, forgot password, Google OAuth |
 | `/users` | Profile, roles, organization membership |
@@ -47,11 +55,11 @@ Error responses:
 | `/recommendations` | AI-generated business recommendations |
 | `/audit-logs` | Security and compliance events |
 
-## Streaming Chat Contract
+---
 
-The chat endpoint will support token streaming so the UI feels fast and modern.
+## Streaming chat contract (planned)
 
-Planned endpoint:
+The chat endpoint supports token streaming for a fast, modern UI.
 
 ```text
 POST /api/v1/conversations/{conversationId}/messages:stream
@@ -66,10 +74,12 @@ Expected event types:
 - `complete`
 - `error`
 
-## Security Expectations
+---
 
-- All protected routes require JWT access tokens.
-- Organization ID is derived from membership, not trusted blindly from the client.
-- File uploads are validated by size, type, and organization permissions.
-- Audit logs are written for auth, document, role, and data-export events.
+## Security expectations
+
+- Protected routes require JWT access tokens
+- Organization context is derived from membership (not trusted from client input)
+- File uploads are validated by permissions, size, and type
+- Audit logs are written for auth, document, role, and export-related events
 

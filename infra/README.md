@@ -1,26 +1,14 @@
 # Infrastructure
 
-This folder contains infrastructure configuration for EchoTwin AI.
+Infrastructure configuration for EchoTwin AI.
 
-## Hackathon Purpose
+## Purpose
 
-Infrastructure should be easy to understand, cheap to run, and realistic enough for a startup-style MVP. The project is designed so local services can run with Docker Compose while cloud hosting can use managed services.
+This project is designed so local services can run via Docker Compose while cloud hosting can use managed equivalents.
 
-## Current File
+## Local infrastructure
 
-```text
-docker-compose.yml
-```
-
-The Compose stack includes:
-
-- PostgreSQL for structured application data
-- Redis for caching, rate limiting, and background coordination
-- ChromaDB for vector search over knowledge-base chunks
-
-## Local Infrastructure
-
-From the repository root:
+Start the local stack from the repository root:
 
 ```powershell
 docker compose -f infra/docker-compose.yml up -d
@@ -32,18 +20,24 @@ Stop services:
 docker compose -f infra/docker-compose.yml down
 ```
 
-## Recommended Cloud Mapping
+Local stack includes:
 
-| Local Service | Cloud Option |
+- PostgreSQL (structured application data)
+- Redis (caching, rate limiting, background coordination)
+- ChromaDB (vector search over knowledge chunks)
+
+## Local → cloud mapping (recommended)
+
+| Local service | Cloud option |
 | --- | --- |
 | PostgreSQL | Supabase or Neon |
 | Redis | Upstash |
-| ChromaDB | Render, Railway, or pgvector replacement |
+| ChromaDB | Render, Railway, or a pgvector replacement |
 | File storage | Supabase Storage |
 | Backend runtime | Render or Railway |
 | Frontend runtime | Vercel |
 
-## GitHub Notes
+## GitHub notes
 
 Never commit provider secrets, service-role keys, database dumps, local volumes, or generated infrastructure state.
 

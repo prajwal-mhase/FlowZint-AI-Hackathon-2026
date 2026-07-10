@@ -1,8 +1,8 @@
 # Shared Python
 
-This folder is reserved for Python contracts that may need to be shared across the FastAPI app, background workers, evaluation jobs, and future CLI utilities.
+Python contracts reserved for code shared across multiple runtimes (FastAPI, workers, evaluation jobs, or future CLIs).
 
-## Planned Contents
+## Planned contents
 
 - Shared constants
 - Common enum definitions
@@ -10,7 +10,7 @@ This folder is reserved for Python contracts that may need to be shared across t
 - Evaluation payload schemas
 - AI pipeline metadata contracts
 
-## Design Rule
+## Design rule
 
-Only place code here when more than one Python service or runtime genuinely needs it. Backend-only application code should remain inside `backend/app`.
+Only place code here when it genuinely needs to be shared across multiple Python services/runtimes. Backend-only implementation should remain under `backend/app`.
 

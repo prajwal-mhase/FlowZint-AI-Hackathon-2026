@@ -1,59 +1,71 @@
 # EchoTwin AI Backend
 
-This folder contains the planned FastAPI backend for EchoTwin AI. The backend is responsible for authentication, organization data, knowledge-base ingestion, AI orchestration, analytics, audit logging, and API delivery.
+Backend services for EchoTwin AI.
 
-## Hackathon Role
+This folder contains the planned **FastAPI** backend and its AI orchestration layer responsible for:
 
-The backend is the intelligence and trust layer of the product. It will turn uploaded business knowledge and customer conversations into secure, source-grounded responses and structured insights.
+- Authentication (JWT / OAuth)
+- Organization-aware RBAC
+- Knowledge ingestion and RAG retrieval
+- AI agent workflows (LangGraph)
+- Analytics, insights, and recommendations
+- Audit logging for security-sensitive actions
 
-## Planned Responsibilities
+---
 
-- Serve versioned REST and streaming APIs under `/api/v1`
-- Authenticate users with JWT and Google OAuth
-- Enforce organization-level RBAC
-- Store relational state in PostgreSQL
-- Cache rate limits and expensive lookups in Redis
-- Connect to ChromaDB for semantic retrieval
-- Orchestrate LangGraph agents for support and analytics workflows
-- Generate recommendations, churn risk, sentiment labels, and documentation gaps
-- Emit audit logs for sensitive actions
+## Intended API surface
 
-## Intended Structure
+The backend is designed to expose a versioned API under:
 
-```text
-app/
-  api/            FastAPI routers, dependencies, middleware
-  ai/             LangGraph workflows, RAG, agents, evaluation
-  core/           config, security, logging, settings
-  domain/         business entities and domain services
-  repositories/   SQLAlchemy data access
-  schemas/        Pydantic request and response models
-  services/       application use cases
-  workers/        background jobs for ingestion and analytics
-alembic/          database migrations
-```
+- `/api/v1`
 
-## Local Development Plan
+Core resource groups:
 
-The backend implementation begins in Phase 2. Expected commands after implementation:
+- `/auth`
+- `/users`
+- `/organizations`
+- `/documents`
+- `/conversations`
+- `/agents`
+- `/insights`
+- `/analytics`
+- `/recommendations`
+- `/audit-logs`
+
+---
+
+## Planned local development
+
+Phase 2 is expected to contain the backend implementation. After it exists, the intended workflow is:
 
 ```powershell
 cd backend
 python -m venv .venv
 .venv\Scripts\activate
 pip install -e ".[dev]"
+
 uvicorn app.main:app --reload
 ```
 
-## Production Notes
+---
 
-- All configuration will be environment-driven through Pydantic settings.
-- Database access will use SQLAlchemy models and repository classes.
-- Public API schemas will be separated from internal domain models.
-- Background document ingestion will be separated from request handling.
-- Security-sensitive events will be recorded in audit logs.
+## Production notes
 
-## GitHub Notes
+- Configuration via environment variables (Pydantic settings)
+- Relational state in PostgreSQL
+- Semantic retrieval via ChromaDB
+- Caching/rate limits via Redis
+- Background jobs for ingestion and analytics
+- Audit logs for sensitive actions
 
-Do not commit local virtual environments, `.env` files, generated uploads, logs, or database snapshots.
+---
+
+## GitHub hygiene
+
+Do not commit:
+
+- `.env` files and secrets
+- local virtual environments
+- generated uploads
+- logs or database snapshots
 

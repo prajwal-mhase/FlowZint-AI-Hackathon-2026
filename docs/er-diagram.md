@@ -1,6 +1,6 @@
 # Entity Relationship Diagram
 
-EchoTwin AI uses a normalized PostgreSQL schema so customer conversations, knowledge-base documents, insights, and recommendations can be queried reliably.
+EchoTwin AI uses a normalized PostgreSQL schema so conversations, knowledge-base documents, insights, and recommendations can be queried reliably.
 
 The database implementation begins in Phase 3. This document records the intended model for judges and future contributors.
 
@@ -21,7 +21,7 @@ erDiagram
   USERS ||--o{ AUDIT_LOGS : produces
 ```
 
-## Planned Tables
+## Planned tables
 
 | Table | Purpose |
 | --- | --- |
@@ -40,10 +40,10 @@ erDiagram
 | `analytics_snapshots` | Cached dashboard metrics |
 | `audit_logs` | Security and compliance events |
 
-## Schema Priorities
+## Schema priorities
 
 - Strong tenant isolation by organization
-- Foreign keys for traceable insights
+- Traceable foreign keys across insights
 - Auditability for sensitive operations
 - Efficient pagination for conversations and documents
 - Metadata columns for AI confidence, source quality, and processing status

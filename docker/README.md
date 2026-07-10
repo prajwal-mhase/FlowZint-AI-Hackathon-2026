@@ -1,36 +1,36 @@
 # Docker
 
-This folder is reserved for container build files used by EchoTwin AI.
+Container build files for EchoTwin AI.
 
-## Hackathon Purpose
+## Purpose
 
-Docker makes the project easier for judges, teammates, and deployment platforms to reproduce. The goal is to keep the local development environment close to production without forcing every reviewer to install PostgreSQL, Redis, and ChromaDB manually.
+Docker helps judges, teammates, and deployment platforms reproduce the environment consistently—especially for services like PostgreSQL, Redis, and ChromaDB.
 
-## Included Files
+## Included Dockerfiles
 
-```text
-backend.Dockerfile    Planned FastAPI backend image
-frontend.Dockerfile   Planned Next.js frontend image
-```
+- `docker/backend.Dockerfile` (planned FastAPI backend image)
+- `docker/frontend.Dockerfile` (planned Next.js frontend image)
 
-## Planned Local Stack
+## Local stack
 
-The main Compose file lives in `infra/docker-compose.yml` and currently defines:
+The primary local stack is defined in `infra/docker-compose.yml`.
+
+Currently it includes:
 
 - PostgreSQL
 - Redis
 - ChromaDB
 
-Future phases will add application containers after the backend and frontend are fully implemented.
+Application containers are planned for later phases.
 
-## Production Recommendation
+## Production recommendation
 
-For the hackathon submission, use managed platforms where possible:
+For the hackathon submission, prefer managed platforms when possible:
 
 - Vercel for frontend
 - Render or Railway for backend
 - Supabase for PostgreSQL and storage
 - Upstash for Redis
 
-Use Docker primarily for local reproducibility and backend deployment packaging.
+Docker is primarily for local reproducibility and packaging.
 

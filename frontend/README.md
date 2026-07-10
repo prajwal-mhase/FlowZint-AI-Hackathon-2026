@@ -1,41 +1,45 @@
 # EchoTwin AI Frontend
 
-This folder contains the Next.js frontend for EchoTwin AI.
+Next.js frontend for EchoTwin AI.
 
-## Hackathon Role
+---
 
-The frontend is the first impression for judges and users. It should feel like a polished SaaS product: clear navigation, premium typography, responsive layouts, dark and light modes, analytics dashboards, a beautiful chat experience, and smooth interactions.
+## Purpose
 
-## Current State
+The frontend is the primary user experience for judges and early adopters. It is intended to feel like a polished SaaS product, including:
 
-Phase 1 includes a minimal Next.js screen and a static `preview.html` at the repository root for reliable local viewing.
+- A modern dashboard
+- A responsive chat experience
+- Knowledge-base management
+- Insights and recommendations
 
-## Planned Product Screens
+---
 
-- Public product entry screen or authenticated redirect
-- Login, register, forgot password, and Google OAuth flows
-- SaaS dashboard with KPIs and insight cards
-- Conversation center with AI chat and history
-- Knowledge-base upload and document management
-- Analytics pages with Recharts visualizations
-- Recommendations and product feedback views
-- Command palette and global search
-- Settings, organization, members, and RBAC management
+## Current state (Phase 1)
 
-## Tech Stack
+Phase 1 includes:
+
+- A minimal Next.js screen
+- A static preview (`preview.html`) at the repository root
+
+---
+
+## Tech stack
 
 - React 19
-- Next.js 15 App Router
+- Next.js 15 (App Router)
 - TypeScript
 - TailwindCSS
-- shadcn/ui-style component architecture
+- shadcn/ui-style components
 - Framer Motion
 - React Query
 - Zustand
 - Recharts
 - Lucide icons
 
-## Local Commands
+---
+
+## Development
 
 From the repository root:
 
@@ -46,17 +50,15 @@ npm run build
 npm --workspace frontend run dev
 ```
 
-## Deployment
+---
 
-Recommended Vercel settings:
+## Deployment (recommended: Vercel)
 
-```text
-Framework Preset: Next.js
-Root Directory: frontend
-Install Command: npm install
-Build Command: npm run build
-Output Directory: .next
-```
+Vercel settings:
 
-For a monorepo import, make sure Vercel installs from the repository root and builds the `frontend` workspace.
+- Root Directory: `frontend`
+- Install Command: `npm install`
+- Build Command: `npm run build`
+
+For a monorepo setup, you may also configure Vercel to install/build from the repository root and build the `frontend` workspace.
 

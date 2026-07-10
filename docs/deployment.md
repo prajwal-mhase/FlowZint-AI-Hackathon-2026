@@ -1,55 +1,51 @@
-# Deployment Guide
+# Deployment
 
-This guide explains the recommended hackathon deployment path for EchoTwin AI.
+This guide documents the recommended deployment approach for EchoTwin AI.
 
-## Current Phase 1 Deployment
+---
 
-The current repository can be pushed to GitHub and deployed as a frontend preview. The most reliable live deployment target is Vercel.
+## Phase 1 (current)
 
-### Vercel Settings
+Phase 1 can be pushed to GitHub and deployed as a frontend preview. The most reliable option is **Vercel**.
 
-```text
-Framework Preset: Next.js
-Root Directory: frontend
-Install Command: npm install
-Build Command: npm run build
-Output Directory: .next
-```
+### Vercel settings
 
-If Vercel builds from the monorepo root, use:
+- Framework preset: Next.js
+- Root directory: `frontend`
+- Install command: `npm install`
+- Build command: `npm run build`
 
-```text
-Install Command: npm install
-Build Command: npm --workspace frontend run build
-```
+---
 
-## GitHub Push Steps
+## GitHub push
 
 ```powershell
 git add .
-git commit -m "initial echotwin ai scaffold"
+git commit -m "chore: initial echotwin ai scaffold"
 git branch -M main
 git remote add origin YOUR_GITHUB_REPOSITORY_URL
 git push -u origin main
 ```
 
-Then import the GitHub repository into Vercel.
+Import the repository into Vercel afterward.
 
-## Full MVP Deployment Plan
+---
 
-| Component | Recommended Host |
+## Full MVP (planned)
+
+| Component | Recommended host |
 | --- | --- |
 | Frontend | Vercel |
 | Backend | Render or Railway |
 | PostgreSQL | Supabase or Neon |
 | Redis | Upstash |
-| Vector database | ChromaDB on Render/Railway, or Supabase pgvector |
+| Vector database | ChromaDB (or Supabase pgvector) |
 | File storage | Supabase Storage |
-| LLM | Gemini or OpenAI-compatible API |
+| LLM | Gemini or an OpenAI-compatible API |
 
-## Environment Variables
+---
 
-Production deployments will need:
+## Environment variables (planned)
 
 ```text
 FRONTEND_URL
@@ -68,7 +64,9 @@ GEMINI_API_KEY
 OPENAI_API_KEY
 ```
 
-## Judge Demo Recommendation
+---
 
-For the hackathon demo, deploy the frontend first so judges can open a polished URL immediately. Then connect the backend and AI services as the implementation phases are completed.
+## Judge demo recommendation
+
+Deploy the frontend first so judges can access a polished URL quickly. Then connect backend services as the implementation phases complete.
 

@@ -1,37 +1,43 @@
 # Tests
 
-This folder contains cross-project testing notes and future end-to-end assets for EchoTwin AI.
+Testing strategy and future fixtures for EchoTwin AI.
 
-## Hackathon Testing Strategy
+---
 
-Testing should focus on the flows most likely to impress judges and protect the core product story:
+## Hackathon testing strategy
 
-- User can authenticate and access an organization workspace
-- User can upload a knowledge-base document
-- Backend chunks, embeds, and retrieves relevant context
-- AI chat returns a grounded answer with citations
-- Conversation is stored and analyzed
-- Sentiment, churn risk, and recommendations appear in the dashboard
+Focus on flows that demonstrate product value and protect the core story:
+
+- Auth + organization workspace access
+- Knowledge-base upload and ingestion
+- Chunking/embedding/retrieval
+- Chat answers are grounded and include citations
+- Conversation persistence and analysis
+- Insights (sentiment, churn risk, recommendations) visible in the dashboard
 - RBAC prevents unauthorized access
 
-## Planned Test Layers
+---
 
-- Backend unit tests with `pytest`
-- Backend integration tests for database and retrieval services
-- Frontend component and page tests
-- API contract tests using OpenAPI
-- End-to-end tests for upload, chat, insights, and dashboard
+## Planned test layers
 
-## Current Verification
+- Backend unit tests (`pytest`)
+- Backend integration tests (database/retrieval)
+- Frontend component/page tests
+- API contract tests (OpenAPI)
+- End-to-end tests (upload → chat → insights → dashboard)
 
-Phase 1 verification:
+---
+
+## Phase 1 verification
 
 ```powershell
 npm run typecheck
 npm run build
 ```
 
-## GitHub Notes
+---
 
-Tests should be runnable from a clean clone. Avoid committing local screenshots, logs, generated coverage output, or private test documents.
+## GitHub notes
+
+Ensure tests are runnable from a clean clone. Avoid committing local screenshots, logs, coverage output, or private documents.
 

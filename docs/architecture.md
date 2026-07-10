@@ -1,14 +1,17 @@
 # Architecture
 
-EchoTwin AI is designed as a modular SaaS platform that combines customer support automation with business intelligence. The architecture prioritizes judge-friendly clarity, MVP feasibility, and a credible path to production.
+EchoTwin AI is designed as a modular SaaS platform that combines customer support automation with business intelligence.
 
-## High-Level System
+---
+
+## High-level system
 
 ```mermaid
 flowchart LR
   Customer[Customer] --> Frontend[Next.js Frontend]
   Support[Support Team] --> Frontend
   Product[Product Team] --> Frontend
+
   Frontend --> API[FastAPI Backend]
   API --> Postgres[(PostgreSQL)]
   API --> Redis[(Redis)]
@@ -18,7 +21,9 @@ flowchart LR
   API --> Embeddings[Sentence Transformer Embeddings]
 ```
 
-## Core Product Loop
+---
+
+## Core product loop
 
 ```mermaid
 flowchart TD
@@ -32,7 +37,9 @@ flowchart TD
   Recommend --> Dashboard[Show insights on dashboard]
 ```
 
-## RAG Workflow
+---
+
+## RAG workflow
 
 ```mermaid
 flowchart TD
@@ -47,33 +54,26 @@ flowchart TD
   Save --> Stream[Stream answer with citations]
 ```
 
-## Multi-Agent Plan
+---
 
-| Agent | Responsibility |
-| --- | --- |
-| Support Agent | Answer customer questions using retrieved knowledge |
-| Knowledge Agent | Evaluate retrieved context and documentation quality |
-| Sentiment Agent | Classify emotion, urgency, and satisfaction |
-| Analytics Agent | Aggregate trends and recurring issues |
-| Recommendation Agent | Suggest documentation and product improvements |
-| Sales Agent | Detect upsell and expansion opportunities |
+## Key architectural choices
 
-## Architectural Decisions
+- **Monorepo**: fast hackathon delivery with clear boundaries
+- **FastAPI**: typed, documented APIs and async support
+- **PostgreSQL**: relational business state
+- **ChromaDB**: vector search for knowledge chunks
+- **Redis**: caching, rate limiting, and coordination
+- **LangGraph**: orchestrates specialized agents
+- **Supabase Storage**: keeps original knowledge files out of the database
 
-- Monorepo keeps hackathon delivery fast while preserving clear boundaries.
-- FastAPI provides typed, documented backend APIs and async support.
-- PostgreSQL stores relational business data.
-- ChromaDB stores vector-searchable document chunks.
-- Redis supports caching, rate limiting, and future background coordination.
-- LangGraph coordinates specialized AI agents instead of one oversized prompt.
-- Supabase Storage keeps original knowledge files out of the application database.
+---
 
-## Production Concerns
+## Production concerns
 
-- Secrets live in environment variables, never source control.
-- RBAC is enforced server-side.
-- Uploaded documents are scanned and type-validated.
-- AI answers include citations and confidence metadata.
-- Audit logs track sensitive actions.
-- Background jobs handle expensive ingestion and analytics tasks.
+- Secrets via environment variables
+- Server-side RBAC enforcement
+- Uploaded document validation
+- Citations and confidence metadata on AI answers
+- Audit logs for sensitive operations
+- Background jobs for ingestion and analytics
 

@@ -1,16 +1,16 @@
 # Scripts
 
-This folder contains helper scripts for local development, previewing, and hackathon demos.
+Helper scripts for local development, previews, and hackathon demos.
 
-## Current Scripts
+## Available scripts
 
 ```text
-dev.ps1                     Placeholder developer helper
-static-preview-server.mjs   Tiny Node server for preview.html
-start-preview.cmd           Windows shortcut for the static preview server
+dev.ps1                       Developer helper (placeholder; expand in later phases)
+static-preview-server.mjs   Static server for `preview.html`
+start-preview.cmd            Windows shortcut for the static preview server
 ```
 
-## Run The Static Preview
+## Run the static preview
 
 From the repository root:
 
@@ -24,15 +24,11 @@ Open:
 http://127.0.0.1:3003
 ```
 
-On Windows, you can also run:
+On Windows you can also run:
 
 ```powershell
 scripts\start-preview.cmd
 ```
 
 Keep the terminal open while viewing the preview.
-
-## GitHub Notes
-
-Scripts should be deterministic, small, and safe for reviewers to run. Avoid committing machine-specific paths unless the script is explicitly Windows-only and documented.
 
