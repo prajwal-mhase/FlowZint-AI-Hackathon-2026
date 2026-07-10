@@ -28,6 +28,7 @@ coverage/
 
 # Logs
 *.log
+*.err
 logs/
 
 # IDE
@@ -40,4 +41,3 @@ uploads/
 chroma/
 postgres/
 redis/
-
