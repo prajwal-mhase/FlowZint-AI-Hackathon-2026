@@ -1,0 +1,21 @@
+{
+  "name": "echotwin-ai-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "EchoTwin AI monorepo",
+  "workspaces": [
+    "frontend",
+    "shared/typescript"
+  ],
+  "scripts": {
+    "dev": "npm --workspace frontend run dev",
+    "build": "npm --workspace frontend run build",
+    "lint": "npm --workspace frontend run lint",
+    "typecheck": "npm --workspace frontend run typecheck"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  }
+}
+
